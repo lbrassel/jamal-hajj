@@ -6,6 +6,9 @@ function fmtDate(d) {
   return new Date(d).toLocaleDateString('fr-MA', { day: '2-digit', month: 'short', year: 'numeric' })
 }
 
+const dayMap = { 'Lundi': 'الإثنين', 'Vendredi': 'الجمعة', 'Tnin': 'الإثنين', 'Jem3a': 'الجمعة' }
+function translateDay(d) { return dayMap[d] || d }
+
 function getWinner(m) {
   if (m.score_jamal > m.score_hajj) return 'jamal'
   if (m.score_hajj > m.score_jamal) return 'hajj'
@@ -42,40 +45,40 @@ export default function PublicPage() {
     <div className={styles.page}>
       <header className={styles.header}>
         <div>
-          <h1 className={styles.title}>Jamal vs Hajj</h1>
-          <p className={styles.sub}>Chaque lundi et vendredi</p>
+          <h1 className={styles.title}>جمال ضد الحاج</h1>
+          <p className={styles.sub}>كل يوم إثنين وجمعة</p>
         </div>
-        <a href="/login" className={styles.adminLink}>Admin ↗</a>
+        <a href="/login" className={styles.adminLink}>المشرف ↗</a>
       </header>
 
       <div className={styles.vsBar}>
         <div className={styles.playerBlock}>
           <div className={styles.avatar} style={{ background: 'var(--blue-light)', color: 'var(--blue-dark)' }}>JM</div>
-          <span className={styles.playerName}>Jamal</span>
-          <span className={styles.playerSub}>{jWins} victoires · {jGoals} buts</span>
+          <span className={styles.playerName}>جمال</span>
+          <span className={styles.playerSub}>{jWins} انتصارات · {jGoals} أهداف</span>
         </div>
         <div className={styles.vsSep}>
-          <span className={styles.vsText}>VS</span>
+          <span className={styles.vsText}>ضد</span>
           <span className={styles.vsRecord}>{jWins} – {draws} – {hWins}</span>
         </div>
         <div className={styles.playerBlock}>
           <div className={styles.avatar} style={{ background: 'var(--amber-light)', color: 'var(--amber-dark)' }}>HJ</div>
-          <span className={styles.playerName}>Hajj</span>
-          <span className={styles.playerSub}>{hWins} victoires · {hGoals} buts</span>
+          <span className={styles.playerName}>الحاج</span>
+          <span className={styles.playerSub}>{hWins} انتصارات · {hGoals} أهداف</span>
         </div>
       </div>
 
       <div className={styles.statsRow}>
-        <div className={styles.stat}><span className={styles.statLbl}>Matchs</span><span className={styles.statVal}>{total}</span></div>
-        <div className={styles.stat}><span className={styles.statLbl}>Jamal</span><span className={styles.statVal} style={{ color: 'var(--blue)' }}>{jWins}</span></div>
-        <div className={styles.stat}><span className={styles.statLbl}>Nuls</span><span className={styles.statVal} style={{ color: 'var(--gray)' }}>{draws}</span></div>
-        <div className={styles.stat}><span className={styles.statLbl}>Hajj</span><span className={styles.statVal} style={{ color: 'var(--amber)' }}>{hWins}</span></div>
+        <div className={styles.stat}><span className={styles.statLbl}>المباريات</span><span className={styles.statVal}>{total}</span></div>
+        <div className={styles.stat}><span className={styles.statLbl}>جمال</span><span className={styles.statVal} style={{ color: 'var(--blue)' }}>{jWins}</span></div>
+        <div className={styles.stat}><span className={styles.statLbl}>تعادل</span><span className={styles.statVal} style={{ color: 'var(--gray)' }}>{draws}</span></div>
+        <div className={styles.stat}><span className={styles.statLbl}>الحاج</span><span className={styles.statVal} style={{ color: 'var(--amber)' }}>{hWins}</span></div>
       </div>
 
       {loading ? (
-        <div className={styles.empty}>Chargement...</div>
+        <div className={styles.empty}>جاري التحميل...</div>
       ) : total === 0 ? (
-        <div className={styles.empty}>Aucun match enregistré pour l'instant.</div>
+        <div className={styles.empty}>لا توجد مباريات مسجلة حتى الآن.</div>
       ) : (
         Object.entries(grouped).map(([month, list]) => (
           <div key={month} className={styles.group}>
@@ -87,17 +90,17 @@ export default function PublicPage() {
                   <div className={`${styles.bar} ${styles['bar_' + w]}`} />
                   <div className={styles.dateCol}>
                     <span className={styles.dateText}>{fmtDate(m.date)}</span>
-                    <span className={styles.dayText}>{m.day}</span>
+                    <span className={styles.dayText}>{translateDay(m.day)}</span>
                     {m.note && <span className={styles.noteText}>{m.note}</span>}
                   </div>
-                  <span className={styles.teamName}>Jamal</span>
+                  <span className={styles.teamName}>جمال</span>
                   <div className={styles.scoreCol}>
                     <span className={styles.score}>{m.score_jamal} – {m.score_hajj}</span>
                     <span className={`${styles.badge} ${styles['badge_' + w]}`}>
-                      {w === 'jamal' ? 'Jamal' : w === 'hajj' ? 'Hajj' : 'Nul'}
+                      {w === 'jamal' ? 'جمال' : w === 'hajj' ? 'الحاج' : 'تعادل'}
                     </span>
                   </div>
-                  <span className={styles.teamName} style={{ textAlign: 'right' }}>Hajj</span>
+                  <span className={styles.teamName} style={{ textAlign: 'left' }}>الحاج</span>
                 </div>
               )
             })}

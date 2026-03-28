@@ -13,35 +13,35 @@ export default function LoginPage() {
     setError('')
     setLoading(true)
     const { error } = await supabase.auth.signInWithPassword({ email, password })
-    if (error) setError('Email ou mot de passe incorrect.')
+    if (error) setError('البريد الإلكتروني أو كلمة المرور غير صحيحة.')
     setLoading(false)
   }
 
   return (
     <div className={styles.page}>
-      <a href="/" className={styles.back}>← Retour</a>
+      <a href="/" className={styles.back}>عودة ⮐</a>
       <div className={styles.card}>
         <div className={styles.logo}>
           <span className={styles.logoJ}>JM</span>
           <span className={styles.logoX}>×</span>
           <span className={styles.logoH}>HJ</span>
         </div>
-        <h1 className={styles.title}>Admin</h1>
-        <p className={styles.sub}>Accès réservé</p>
+        <h1 className={styles.title}>المشرف</h1>
+        <p className={styles.sub}>دخول خاص</p>
         <form onSubmit={handleLogin} className={styles.form}>
           <div className={styles.field}>
-            <label className={styles.label}>Email</label>
+            <label className={styles.label}>البريد الإلكتروني</label>
             <input
               type="email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              placeholder="ton@email.com"
+              placeholder="البريد@مثال.com"
               required
               className={styles.input}
             />
           </div>
           <div className={styles.field}>
-            <label className={styles.label}>Mot de passe</label>
+            <label className={styles.label}>كلمة المرور</label>
             <input
               type="password"
               value={password}
@@ -53,7 +53,7 @@ export default function LoginPage() {
           </div>
           {error && <p className={styles.error}>{error}</p>}
           <button type="submit" className={styles.btn} disabled={loading}>
-            {loading ? 'Connexion...' : 'Se connecter'}
+            {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
           </button>
         </form>
       </div>

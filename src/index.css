@@ -1,59 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --blue: #378ADD;
-  --blue-light: #E6F1FB;
-  --blue-dark: #0C447C;
-  --amber: #EF9F27;
-  --amber-light: #FAEEDA;
-  --amber-dark: #633806;
-  --green: #1D9E75;
-  --green-light: #E1F5EE;
-  --green-dark: #085041;
-  --red: #E24B4A;
-  --red-light: #FCEBEB;
-  --red-dark: #791F1F;
-  --gray: #888780;
-  --gray-light: #F1EFE8;
-  --gray-dark: #444441;
+  --blue: #3b82f6;
+  --blue-grad: linear-gradient(135deg, #60a5fa, #2563eb);
+  --blue-light: #eff6ff;
+  --blue-glow: rgba(59, 130, 246, 0.4);
+  --blue-dark: #1e3a8a;
+  
+  --amber: #f59e0b;
+  --amber-grad: linear-gradient(135deg, #fbbf24, #d97706);
+  --amber-light: #fffbeb;
+  --amber-glow: rgba(245, 158, 11, 0.4);
+  --amber-dark: #78350f;
+  
+  --green: #10b981;
+  --red: #ef4444;
+  --gray: #9ca3af;
+  --gray-light: #f3f4f6;
+  --gray-dark: #4b5563;
+  
   --bg: #ffffff;
-  --bg2: #f7f7f5;
-  --bg3: #f0efed;
-  --text: #1a1a18;
-  --text2: #5f5e5a;
-  --text3: #888780;
-  --border: rgba(0,0,0,0.1);
-  --border2: rgba(0,0,0,0.18);
-  --radius: 10px;
-  --radius-sm: 6px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #1a1a18;
-    --bg2: #222220;
-    --bg3: #2a2a28;
-    --text: #f0efe9;
-    --text2: #b4b2a9;
-    --text3: #888780;
-    --border: rgba(255,255,255,0.1);
-    --border2: rgba(255,255,255,0.18);
-    --blue-light: #0c447c;
-    --blue-dark: #b5d4f4;
-    --amber-light: #633806;
-    --amber-dark: #fac775;
-    --green-light: #085041;
-    --green-dark: #9fe1cb;
-    --red-light: #791f1f;
-    --red-dark: #f7c1c1;
-    --gray-light: #2c2c2a;
-    --gray-dark: #d3d1c7;
-  }
+  --bg2: #f8fafc;
+  --bg-glass: rgba(255, 255, 255, 0.75);
+  --bg-glass-hover: rgba(255, 255, 255, 0.9);
+  
+  --text: #0f172a;
+  --text2: #475569;
+  --text3: #64748b;
+  
+  --border: rgba(15, 23, 42, 0.08);
+  --border2: rgba(15, 23, 42, 0.15);
+  
+  --shadow-sm: 0 2px 4px rgba(15,23,42,0.04);
+  --shadow-md: 0 4px 12px rgba(15,23,42,0.06), 0 1px 3px rgba(15,23,42,0.03);
+  --shadow-xl: 0 20px 25px -5px rgba(15,23,42,0.06), 0 8px 10px -6px rgba(15,23,42,0.03);
+  
+  --radius: 16px;
+  --radius-sm: 10px;
 }
 
 body {
-  font-family: 'Syne', system-ui, sans-serif;
-  background: var(--bg);
+  font-family: 'Tajawal', system-ui, -apple-system, sans-serif;
+  background-color: #f1f5f9;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(217,100%,94%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(38,100%,92%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 100%, hsla(217,100%,94%,1) 0, transparent 50%), 
+    radial-gradient(at 0% 100%, hsla(38,100%,92%,1) 0, transparent 50%);
+  background-attachment: fixed;
   color: var(--text);
   min-height: 100vh;
   -webkit-font-smoothing: antialiased;
@@ -64,24 +60,39 @@ input, select, button, textarea {
   font-size: 14px;
   color: var(--text);
   background: var(--bg);
-  border: 0.5px solid var(--border2);
+  border: 1px solid var(--border);
   border-radius: var(--radius-sm);
   outline: none;
-  transition: border-color 0.15s;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-input:focus, select:focus { border-color: var(--blue); }
+
+input:focus, select:focus { 
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px var(--blue-glow);
+}
 
 button {
   cursor: pointer;
-  background: transparent;
-  border: 0.5px solid var(--border2);
-  padding: 0 16px;
-  height: 38px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 0 20px;
+  height: 42px;
   border-radius: var(--radius-sm);
-  font-weight: 500;
-  transition: background 0.12s, transform 0.1s;
+  font-weight: 600;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
-button:hover { background: var(--bg2); }
-button:active { transform: scale(0.98); }
+
+button:hover { 
+  background: var(--bg-glass-hover); 
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+button:active { 
+  transform: translateY(1px); 
+  box-shadow: none;
+}
 
 a { color: inherit; text-decoration: none; }
+
